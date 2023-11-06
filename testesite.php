@@ -53,9 +53,11 @@
 		.enquete{
 			border: 1px solid #ccc;
             padding: 10px;
-            overflow: hidden; 
+            overflow: hidden;
 			background-color:darkgrey;	
+
 		}
+
 		.borda {
 			border: 1px solid #ccc;
             padding: 10px;
@@ -121,11 +123,6 @@
 			grid-column-end: 3;
 			background-color: rgb(44, 44, 94);
 		}
-		.rodape{
-			grid-column-start: 1;
-			grid-column-end: 3;
-			background-color: rgb(44, 44, 94);
-		}
 		.esquerdaborda{
 			grid-row-start: 2;
 			grid-row-end: 5;
@@ -135,7 +132,14 @@
 		text-align: center;
 		color: aliceblue;
 		font-stretch: expanded;
-		font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif	
+		font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif	
+		}
+		
+		.rodapeborda{
+			grid-column-start: 1;
+			grid-column-end: 3;
+			background-color: rgb(44, 44, 94);
+			
 		}
 	
 		
@@ -154,7 +158,7 @@
    	<aside class="esquerdaborda">
    		<nav>
    			<ul>
-   				<li><h1>Cadastre-se no nosso site, e receba novidades todas as semanas!</h1></li>  
+   				<li><h1>Cadastre-se no nosso site, e receba videos sobre problemas reccorentes do seu veículo!</h1></li>  
     </body>
     <h1>Formulário</h1>
 
@@ -176,6 +180,14 @@
 		<input type="radio" name="genero" value="Outro">
 		<label for="outro">Outro</label><br><br>
 
+		<label for="carro">Qual é o seu carro?</label>
+        <select name="carro">
+            <option value="">Selecione</option>
+            <option value="206">206</option>
+            <option value="clio">Clio</option>
+            <option value="xsara">Xsara</option>
+        </select><br><br>
+
 		<input type="submit" value="Enviar">
 		<input type="reset" value="Limpar Dados">
 
@@ -183,23 +195,38 @@
 			<br>
 			<br><br><br>
 	
-			<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST["nome"];
-    $email = $_POST["email"];
-	$idade = $_POST["idade"];
-	$genero = $_POST["genero"];
-
-
-    echo "Nome: " . $nome . "<br>";
-    echo "E-mail: " . $email . "<br>";
-	echo "idade: " . $idade . "<br>";
-	echo "Gênero: " . $genero . "<br>";
-}
-    ?>
     </form> 
 	
 </body>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST["nome"];
+    $email = $_POST["email"];
+    $idade = $_POST["idade"];
+    $genero = $_POST["genero"];
+	$carro = $_POST ["carro"];
+	
+	require_once("conexao.php");
+
+    try {
+      
+        $stmt = $pdo->prepare("INSERT INTO tb_usuarioteste (nm_usuario, id_email, id_idade, id_genero,nm_carro) VALUES (?,?, ?, ?, ?)");
+        $stmt->execute([$nome, $email, $idade, $genero, $carro]);
+        
+		
+		
+		
+		echo "Dados inseridos com sucesso!";
+		die();
+    } catch (PDOException $e) {
+        echo "Erro ao inserir dados no banco de dados: " . $e->getMessage();
+    }
+}
+?>
+</form>
+</body>
+
 </html>
 			   
    	</ul>
@@ -207,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</aside>
 
    	<section class="secao borda">
-   		<h1>Principais presentes chineses:</h1>
+   		<h1>Principais marcas chinesas:</h1>
 		<article class="borda1">
 			<a href="https://caoachery.com.br/tiggo8-maxdrive?utm_source=google&utm_medium=cpc&utm_campaign=Havas_Caoa-Chery_fy23q3_tr%C3%A1fego_leil%C3%A3o_exploration-evaluation_always-on_tiggo-8-maxdrive-combustao&utm_content=Havas_Caoa-Chery_fy23q3_google_search_texto_tiggo-8-maxdrive-combustao_always-on-agosto_exploration-evaluation_kw_cpc_visitas&utm_id=Havas&utm_term=fy23q3&gclid=EAIaIQobChMI_ZfymPjDgQMVQzHUAR1pEQUXEAAYASAAEgLnB_D_BwE" target="_self"> Chery </a>
 		</article>
@@ -239,64 +266,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</p>	
 		</section>
 	
-   	<section class="enquete">
-
-	
-		<h2>Informe o seu veículo, e qual foi o problema constatado:</h2>
-
-		<form method="post">
-        <label for="marca">Qual a marca do seu carro?</label>
-        <select name="marca">
-            <option value="">Selecione</option>
-            <option value="peugeot">Peugeot</option>
-            <option value="renault">Renault</option>
-            <option value="citroen">Citroen</option>
-            <option value="changan">Changan</option>
-            <option value="lifan">Lifan</option>
-            <option value="ssangyong">SsangYong</option>
-        </select><br><br>
-
-        <label for="modelo">Qual o modelo do seu carro?</label>
-        <select name="modelo">
-            <option value="">Selecione</option>
-            <option value="206">206</option>
-            <option value="clio">Clio</option>
-            <option value="xsara">Xsara</option>
-            <option value="chana">Chana</option>
-            <option value="x60">X60</option>
-            <option value="kyron">Kyron</option>
-        </select><br><br>
-
-        <label for="motor">Qual é o motor do seu carro? (1.0 16v, por exemplo)</label><br>
-        <input type="text" name="motor"><br><br>
-
-        <input type="submit" value="Enviar">
-        <input type="reset" value="Limpar">
-    </form>
+	<section class = "rodapeborda">
 
 	</section>
-
-		<footer>
-	
-		<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $marca = $_POST["marca"];
-    $modelo = $_POST["modelo"];
-    $motor = $_POST["motor"];
-
-    // Agora você pode fazer o que desejar com as variáveis $marca, $modelo e $motor
-    // Por exemplo, você pode armazená-las em um banco de dados ou exibi-las na página
-    echo "Marca do carro: " . $marca . "<br>";
-    echo "Modelo do carro: " . $modelo . "<br>";
-    echo "Motor do carro: " . $motor . "<br>";
-}
-?>
-		</footer>
-   		<footer class="rodape borda ">
-				
- 
-		</footer>
-
+   	
 </body>
 </html>
 
