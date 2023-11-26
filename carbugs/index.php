@@ -185,8 +185,14 @@
         <select name="carro">
             <option value="">Selecione</option>
             <option value="206">206</option>
-            <option value="clio">Clio</option>
-            <option value="xsara">Xsara</option>
+			<option value="307">307</option>
+			<option value="308">308</option>
+			<option value="106">106</option>
+			<option value="2008">2008</option>
+			<option value="405">405</option>
+			<option value="504">504</option>
+			<option value="Boxer">Boxer</option>
+            
         </select><br><br>
 
 		<input type="submit" value="Enviar">

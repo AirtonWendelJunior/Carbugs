@@ -5,7 +5,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idade = $_POST["idade"];
     $genero = $_POST["genero"];
 	$carro = $_POST ["carro"];
-	
+  
+  
 	require_once("conexao.php");
 
     try {
@@ -13,12 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO tb_carbugs_usuario (nm_usuario, id_email, id_idade, id_genero,nm_carro) VALUES (?,?,?,?,?)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$nome, $email, $idade, $genero, $carro]);
-        
-		
+
+        session_start();
+	
+		$_SESSION['id_veiculo']=2;
 		
 		header('location: videosrelacionados.php');
 
-	
+	//header('location: videosrelacionados.php? id_veiculo=2');
 
 		//die();
 

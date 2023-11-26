@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    
+      <script>
+   
+    
+
+    function validaForm() {
+                //Validação do nome
+                var nome = meu_form.nome.value;
+                if (nome == "") {
+                    alert("É necessário preencher o nome!");
+                    return false;
+                }
+    
+                //Validação das senhas digitadas
+                var senha = meu_form.senha.value;
+                var rsenha = meu_form.rsenha.value;
+                if (senha == "") {
+                    alert("É necessário preencher a senha!");
+                    return false;
+                }else if (rsenha == "") {
+                    alert("É necessário preencher a repetição da senha!");
+                    return false;
+                }else if (senha != rsenha) {
+                    alert("Senhas incompatíveis, digite novamente!");
+                    return false;
+                }
+
+                window.location.href = "http://localhost/carbugs/";
+            }
+
+    </script>
+        
+        
+
+</head>
+
+<style type="text/css">
+    .borda {
+        border: 2px solid black;
+        padding: 40px;
+        background-image: url('https://st3.depositphotos.com/4312111/17460/i/450/depositphotos_174604288-stock-photo-black-sports-car.jpg');	
+        background-size: cover;
+        color: azure;
+    }
+    .borda1 {
+        border: 2px solid black;
+        padding: 40px;
+        background-color: rgba(153, 114, 189, 0.332);
+    }
+    .borda2 {
+        border: 2px solid black;
+        padding: 40px;
+        background-color: rgba(153, 114, 189, 0.332);
+    }
+    .borda3 {
+        border: 2px solid black;
+        padding: 40px;
+        background-color:rgba(153, 114, 189, 0.332);
+    }
+</style>
+
+
+<body>
+    
+    
+    
+ 
+<section class="borda">
+    <h2>CADASTRE-SE NO NOSSO SITE</h2>
+    <article class="borda1">
+        <h1>Formulário</h1>
+
+        <form method="post" name="form2" action="conexao_senha.php"  onsubmit="return validarForm()">
+            <label for="nome">Nome Completo:</label><br>
+            <input type="text" name="nome" required><br><br>
+
+            <label for="senha">Senha:</label><br>
+            <input type="password" name="senha" required><br><br>
+
+            <label for="rsenha">Repita a senha:</label><br>
+            <input type="password" name="rsenha" required><br><br>
+
+            <input type="reset" value="Limpar Dados">
+            <input type="submit" value="Enviar">
+        </form>
+    </article>
+</section>
+
+
+   
+    
+
+</body>
+</html>

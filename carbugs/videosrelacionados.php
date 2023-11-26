@@ -44,7 +44,13 @@
 
 <body>
     
-    
+    <?php
+
+    session_start();
+	
+    echo $_SESSION['id_veiculo'];
+
+    ?>
     
     <section class="borda">
 
@@ -52,13 +58,13 @@
 
         <h2>Vídeos relacionados a sua pesquisa:</h2>
      <article class="borda1">
-        <a href="https://www.openai.com">Visite o site da OpenAI</a>
+        <a href="https://www.youtube.com/watch?v=DRJbcdFsF-o">Barulho na suspensão do Peugeot 206</a>
      </article>
      <article class="borda2">
-        <a href="https://www.openai.com">Visite o site da OpenAI</a>
+        <a href="https://www.youtube.com/watch?v=B7Y4S1NOWgY">Problemas no motor da linha Clio</a>
      </article>
      <article class="borda3">
-        <a href="https://www.openai.com">Visite o site da OpenAI</a>
+        <a href="https://www.youtube.com/results?search_query=daihatsu+cuore">Conheça o Daihatsu Cuore</a>
      </article>
     </section>
 
