@@ -1,33 +1,39 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
-    $email = $_POST["email"];
     $idade = $_POST["idade"];
     $genero = $_POST["genero"];
-	$carro = $_POST ["carro"];
-  
-  
-	require_once("conexao.php");
+    $email = $_POST["email"];
+    $senha = $_POST["senha"];
+    $rsenha = $_POST["rsenha"];
+
+    require_once("conexao.php");
 
     try {
-        
-        $sql = "INSERT INTO tb_carbugs_usuario (nm_usuario, id_email, id_idade, id_genero,nm_carro) VALUES (?,?,?,?,?)";
+
+        $sql = "INSERT INTO tb_cadastro (nm_usuario, id_idade, id_genero, email_usuario, id_senha, id_rsenha) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$nome, $email, $idade, $genero, $carro]);
+        $stmt->execute([$nome, $idade, $genero, $email, $senha, $rsenha]);
 
-        session_start();
-	
-		$_SESSION['id_veiculo']=2;
-		
-		header('location: videosrelacionados.php');
+        
+        $sqlGetUser = "SELECT nm_usuario FROM tb_cadastro WHERE email_usuario = ?";
+        $stmtGetUser = $pdo->prepare($sqlGetUser);
+        $stmtGetUser->execute([$email]);
+        $usuario = $stmtGetUser->fetch(PDO::FETCH_ASSOC);
 
-	//header('location: videosrelacionados.php? id_veiculo=2');
+        // Armazena o nome do usuário na variável de sessão
+        $_SESSION['nm_usuario'] = $usuario['nm_usuario'];
 
-		//die();
+        // Redirecione para a página index.php
+        header('location: index.php');
+        exit();
 
     } catch (PDOException $e) {
-    
-		echo "Erro ao inserir dados no banco de dados: " . $e->getMessage();
+        echo "Erro ao inserir dados no banco de dados: " . $e->getMessage();
     }
 }
 ?>

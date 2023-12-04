@@ -1,3 +1,14 @@
+
+
+<?php
+		include('trava.php');
+
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,32 +23,6 @@
 		window.alert("Gostaríamos de alertar que é sempre indicado a avaliação de um profissional para a avaliação do seu veículo. A manutenção indevida pode colocar em risco você, a sua família e os outros em volta.");
 		
 
-		function validarFormulario() {
-    var nome = document.forms["meu_form"]["nome"].value;
-    var email = document.forms["meu_form"]["email"].value;
-    var idade = document.forms["meu_form"]["idade"].value;
-    var genero = document.querySelector('input[name="genero"]:checked');
-
-    if (nome === "") {
-        alert("É necessário preencher o campo Nome Completo.");
-        return false;
-    }
-    if (email === "") {
-        alert("É necessário preencher o campo E-mail.");
-        return false;
-    }
-    if (idade === "") {
-        alert("É necessário preencher o campo Idade.");
-        return false;
-    }
-    if (!genero) {
-        alert("É necessário selecionar um gênero.");
-        return false;
-    }
-    return true;
-
-
-}
 </script>
 	<style>	
 		.sujestoes {
@@ -141,16 +126,29 @@
 			background-color: rgb(44, 44, 94);
 			
 		}
+		.session{
+		text-align: left;
+		color:crimson;
+		font-stretch: expanded;
+		font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif	
+		}
 	
 		
 	</style>
 </head> 
     <body class="conteudo">
+
+
    	<header class="cabecalho borda">
-		
+	   <p>
+        <a href="logout.php">Sair</a>
+    </p>
+	 
+	   <!--<button onclick="voltar()">Voltar</button>-->
+		<h3 class = "session">  Bem vindo a Carbugs, <?php echo $_SESSION['nm_usuario']; ?></h3>	
 		<section class="titulo">
 		<h1 style="border-top-style: groove;"><br><br>CarBugs</h1>
-		<p><br>Aqui você vai encontrar amigos que tem ou tambem tiveram problemas com seus veículos, e poderão lhe auxiliar a resolver os seus problemas.</p>
+		<p><br>Aqui você vai encontrar informações e vídeos sobre vários veículos.</p>
 	</section>
 	</header>
 
@@ -158,46 +156,30 @@
    	<aside class="esquerdaborda">
    		<nav>
    			<ul>
-   				<li><h1>Cadastre-se no nosso site, e receba videos sobre problemas reccorentes do seu veículo!</h1></li>  
+   				<li><h1>Escolha entre esses carros, e veja vídeos sobre o mesmo.</h1></li>  
     </body>
-    <h1>Formulário</h1>
-
-		
-	   <form method="post" name="meu_form" action="inserirusuario.php" onsubmit="return validarFormulario()">
-        <label for="nome">Nome Completo:</label><br>
-        <input type="text" name="nome"><br><br>
-
-        <label for="email">E-mail:</label><br>
-        <input type="text" name="email"><br><br>
-		
-		<label for="idade">Idade:</label><br>
-        <input type="text" name="idade"><br><br>
-
-		<label for="genero">Gênero:</label><br>
-		<input type="radio" name="genero" value="Masculino">
-		<label for="masculino">Masculino</label><br>
-		<input type="radio" name="genero" value="Feminino">
-		<label for="feminino">Feminino</label><br>
-		<input type="radio" name="genero" value="Outro">
-		<label for="outro">Outro</label><br><br>
-
-		<label for="carro">Qual é o seu carro?</label>
-        <select name="carro">
+    
+	   <form method="post" name="meu_form" action="videosrelacionados.php">
+       
+		<label for="id_veiculo">Escolha um modelo</label>
+        <select name="id_veiculo">
             <option value="">Selecione</option>
-            <option value="206">206</option>
-			<option value="307">307</option>
-			<option value="308">308</option>
-			<option value="106">106</option>
-			<option value="2008">2008</option>
-			<option value="405">405</option>
-			<option value="504">504</option>
-			<option value="Boxer">Boxer</option>
+            <option value="1">206</option>
+			<option value="2">307</option>
+			<option value="3">308</option>
+			<option value="4">106</option>
+			<option value="5">2008</option>
+			<option value="6">405</option>
+			<option value="7">504</option>
+			
             
         </select><br><br>
 
 		<input type="submit" value="Enviar">
 		<input type="reset" value="Limpar Dados">
 
+
+		
 			<br>
 			<br>
 			<br><br><br>
