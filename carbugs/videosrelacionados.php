@@ -2,13 +2,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8" />
-    <title>title</title>
+    <title>Vídeos relacionados</title>
 
     <script>
         function voltar() {
             window.location.href = 'http://localhost/carbugs/';
         }
     </script>
+
 
     <style type="text/css">
         .borda {
@@ -32,6 +33,8 @@
 <body>
 
 <section class="borda">
+
+<button onclick="voltar()">Voltar</button>
 
     <?php
     require_once("conexao.php");
@@ -102,7 +105,7 @@
 </section>
 
 <section class="borda2">
-    <h2>Adicione um comentário sobre o vídeo escolhido!</h2>   
+    <h2>Adicione um comentário sobre o veículo escolhido!</h2>   
     <form method="post" action="inserecoment.php">
         <input type="hidden" name="cd_video" value="<?php echo $idCarroEscolhido; ?>">
         <textarea name="txt_comentario" id="comentario" cols="30" rows="10"></textarea>
