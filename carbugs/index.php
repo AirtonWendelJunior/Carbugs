@@ -1,6 +1,9 @@
 
 
 <?php
+		require_once("conexao.php");
+
+
 		include('trava.php');
 
 		if(!isset($_SESSION)) {
@@ -229,8 +232,18 @@
 		<a href="https://autopapo.uol.com.br/noticia/manipulacao-resultado-corrida-f1/" target="_self">  Manipulação de resultado: 5 vezes que as corridas da F1 foram definidas fora das pistas. </a>
 		</p>	
 		</section>
+	<section class="sujestoes">
 	
+	
+	
+</form>
+
+	</section>
+
+
 	<section class = "rodapeborda">
+
+	
 
 	</section>
    	

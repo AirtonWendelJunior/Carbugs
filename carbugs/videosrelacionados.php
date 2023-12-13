@@ -10,7 +10,6 @@
         }
     </script>
 
-
     <style type="text/css">
         .borda {
             border: 2px solid black;
@@ -34,9 +33,10 @@
 
 <section class="borda">
 
-<button onclick="voltar()">Voltar</button>
+    <button onclick="voltar()">Voltar</button>
 
     <?php
+    session_start();
     require_once("conexao.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -60,7 +60,7 @@
             $videos = $stmtVideos->fetchAll(PDO::FETCH_ASSOC);
 
             // Consulta para obter os comentários relacionados ao veículo
-            $sqlComentarios = "SELECT txt_comentario FROM tb_comentario WHERE cd_video = :id_veiculo";
+            $sqlComentarios = "SELECT txt_comentario, email_usuario FROM tb_comentario WHERE cd_video = :id_veiculo";
             $stmtComentarios = $pdo->prepare($sqlComentarios);
             $stmtComentarios->bindParam(':id_veiculo', $idCarroEscolhido);
             $stmtComentarios->execute();
@@ -88,7 +88,18 @@
                 echo "<h3>Comentários:</h3>";
                 echo "<ul>";
                 foreach ($comentarios as $comentario) {
-                    echo "<li>{$comentario['txt_comentario']}</li>";
+                    echo "<li>{$comentario['txt_comentario']} - Comentário enviado por: {$comentario['email_usuario']}";
+
+                    // Verifica se o usuário logado é o autor do comentário
+                    if ($_SESSION['nm_usuario'] === $comentario['email_usuario']) {
+                        echo "<form action='apagar.php' method='post' style='display:inline;'>
+                                  <input type='hidden' name='txt_comentario' value='{$comentario['txt_comentario']}'>
+                                  <input type='hidden' name='cd_video' value='{$idCarroEscolhido}'>
+                                  <button type='submit'>Apagar Comentário</button>
+                              </form>";
+                    }
+
+                    echo "</li>";
                 }
                 echo "</ul>";
             } else {
@@ -104,14 +115,17 @@
     ?>
 </section>
 
+
 <section class="borda2">
-    <h2>Adicione um comentário sobre o veículo escolhido!</h2>   
+
+    <h2 class="session">Adicione um comentário sobre os vídeos, <?php echo $_SESSION['nm_usuario']; ?></h2>
     <form method="post" action="inserecoment.php">
         <input type="hidden" name="cd_video" value="<?php echo $idCarroEscolhido; ?>">
         <textarea name="txt_comentario" id="comentario" cols="30" rows="10"></textarea>
         <input type="submit" value="Enviar">
         <input type="reset" value="Limpar Dados">
     </form>
+
 </section>
 
 </body>
